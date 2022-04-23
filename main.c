@@ -7,13 +7,6 @@
 #define ANCHO 118
 
 void contarTitulo(char titulo[]);
-void obtenerAnchosIzq(longitud);
-void obtenerAnchosDer(longitud);
-void imprimirTecho(longitud);
-void imprimirPiso(longitud);
-void imprimirTitulo(char titulo[]);
-void tituloEncuadrado(tituloCenter);
-void imprimirLinea(longitud);
 void cargarPila (Pila*p);
 void pasarPila (Pila *p, Pila *p2);
 void pasarPilaIgual (Pila *p, Pila *p2);
@@ -22,7 +15,6 @@ void apilarOrdenado(Pila *p);
 void insertarElementoEnOrdenada(Pila *p);
 void imprimirPila(Pila p);
 void cargarPilaRandom(Pila *p, int lim);
-void ladoDerecho(int ancho);
 
 void main()
 {
@@ -116,7 +108,6 @@ void main()
             printf("6. Hacer una funci�n que inserta en una pila ordenada un nuevo elemento, conservando el orden de �sta. \n");
             cargarPilaRandom(&pila, limite);
             insertarElementoEnOrdenada(&pila);
-            //imprimirTitulo("PILA CON NUEVO ELEMENTO ORDENADO: \n");
             imprimirPila(pila);
 
             break;

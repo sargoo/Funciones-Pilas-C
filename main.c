@@ -24,7 +24,7 @@ void imprimirPila(Pila p);
 void cargarPilaRandom(Pila *p, int lim);
 void ladoDerecho(int ancho);
 
-int main()
+void main()
 {
     int opcion = 0, ejercicio = 0;
     Pila pila, otra, ordenada;
@@ -34,11 +34,6 @@ int main()
     srand(time(NULL));
     int limite = rand()%(11-5) + 5;
     int menor = 0;
-
-
-
-
-
 
 
     while (opcion != ESC)
@@ -59,18 +54,18 @@ int main()
         contarTitulo("La misma debe eliminar ese dato de la pila.");
         imprimirTecho(ANCHO);
         contarTitulo("5-Hacer una funcion que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada.");
-        contarTitulo("Usar la función del ejercicio 4.");
+        contarTitulo("Usar la funciï¿½n del ejercicio 4.");
         imprimirTecho(ANCHO);
-        contarTitulo("6. Hacer una función que inserta en una pila ordenada un nuevo elemento, conservando el orden de ésta.");
+        contarTitulo("6. Hacer una funciï¿½n que inserta en una pila ordenada un nuevo elemento, conservando el orden de ï¿½sta.");
         imprimirTecho(ANCHO);
         scanf("%i", &ejercicio);
         system("cls");
         switch(ejercicio)
         {
         case 1:
-            printf("1-Hacer una funcion que permita ingresar varios elementos a una pila, tanto como quiera el usuario. \n");
+            contarTitulo("1-Hacer una funcion que permita ingresar varios elementos a una pila, tanto como quiera el usuario. ");
             cargarPila (&pila);
-            mostrar(&pila);
+            imprimirPila(pila);
             break;
 
         case 2:
@@ -87,7 +82,7 @@ int main()
             break;
 
         case 3:
-            printf("3-Hacer una función que pase todos los elementos de una pila a otra, pero conservando el orden.\n");
+            printf("3-Hacer una funciï¿½n que pase todos los elementos de una pila a otra, pero conservando el orden.\n");
             cargarPilaRandom(&pila, limite);
             printf("PILA");
             imprimirPila(pila);
@@ -97,7 +92,7 @@ int main()
             break;
 
         case 4:
-            printf("4. Hacer una función que encuentre el menor elemento de una pila y lo retorna. La misma debe eliminar ese dato de la pila.\n");
+            printf("4. Hacer una funciï¿½n que encuentre el menor elemento de una pila y lo retorna. La misma debe eliminar ese dato de la pila.\n");
             cargarPilaRandom(&pila, limite);
             imprimirPila(pila);
             menor = encontrarMenor (&pila);
@@ -108,7 +103,7 @@ int main()
             break;
 
         case 5:
-            printf("Hacer una función que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la función del ejercicio 4. (Ordenamiento por selección\n");
+            printf("Hacer una funciï¿½n que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la funciï¿½n del ejercicio 4. (Ordenamiento por selecciï¿½n\n");
             cargarPilaRandom(&pila, limite);
             printf("PILA ANTES DE LA ORDENACION\n");
             imprimirPila(pila);
@@ -118,7 +113,7 @@ int main()
             break;
 
         case 6:
-            printf("6. Hacer una función que inserta en una pila ordenada un nuevo elemento, conservando el orden de ésta. \n");
+            printf("6. Hacer una funciï¿½n que inserta en una pila ordenada un nuevo elemento, conservando el orden de ï¿½sta. \n");
             cargarPilaRandom(&pila, limite);
             insertarElementoEnOrdenada(&pila);
             //imprimirTitulo("PILA CON NUEVO ELEMENTO ORDENADO: \n");
@@ -138,10 +133,7 @@ int main()
         opcion = getch();
         system("cls");
     }
-    return 0;
 }
-
-
 
 void cargarPila (Pila *p)
 {
@@ -157,6 +149,21 @@ void cargarPila (Pila *p)
         corte = getch();
         system("cls");
     }
+}
+
+void imprimirPila(Pila p)
+{
+    int superior = 0;
+    Pila aux;
+    inicpila(&aux);
+    pasarPila(&p, &aux);
+    while(!pilavacia(&aux))
+    {
+        superior = tope(&aux);
+        printf("|%i|", superior);
+        apilar(&p, desapilar(&aux));
+    }
+    printf("\n");
 }
 
 void pasarPila (Pila *p, Pila *p2)
@@ -237,16 +244,11 @@ void apilarOrdenado(Pila *p)
 
         if(pilavacia(p))
         {
-            while (!pilavacia(&aux))
-            {
-                apilar(p, desapilar(&aux));
-            }
+            pasarPila(&aux, p);
         }
     }
-    while(!pilavacia(&menor))
-    {
-        apilar(p, desapilar(&menor));
-    }
+    pasarPila(&menor, &aux);
+    pasarPila(&aux, p);
 }
 
 
@@ -318,20 +320,7 @@ void imprimirTecho(int longitud)
 }
 
 
-void imprimirPila(Pila p)
-{
-    int superior = 0;
-    while(!pilavacia(&p))
-    {
-        Pila aux;
-        inicpila(&aux);
-        superior = tope(&p);
-        printf("|%i|", superior);
-        apilar(&aux, desapilar(&p));
-    }
-    printf("\n");
 
-}
 
 void insertarElementoEnOrdenada(Pila *p)
 {

@@ -31,6 +31,14 @@ void main()
     while (opcion != ESC)
     {
 
+        /*
+        Podriamos tener un array con todos los titulos de las consignas y hacer un
+        for(int i = 0; i <= CantidadConsignasEnArray; i++)
+        {
+            imprimirTecho(ANCHO);
+            contarTitulo(arrayConsignas[i]);
+        }
+        */
         imprimirTecho(ANCHO);
         contarTitulo("GUIA PRACTICA 3 - FUNCIONES");
         imprimirTecho(ANCHO);
@@ -54,6 +62,10 @@ void main()
         system("cls");
         switch(ejercicio)
         {
+                
+        /*
+        En cada Case podriamos tener un case 1: EjecutarConsigna1() case 2: EjecutarConsigna2() etc;
+        */
         case 1:
             contarTitulo("1-Hacer una funcion que permita ingresar varios elementos a una pila, tanto como quiera el usuario. ");
             cargarPila (&pila);
@@ -246,6 +258,11 @@ void apilarOrdenado(Pila *p)
 
 void contarTitulo(char titulo[])
 {
+    /*
+    Lo unico que encontre mejor que esto es el ponerle vos el tamaño que quieras a la consola
+    https://stackoverflow.com/questions/17160553/making-the-console-window-bigger-in-c
+    Ta medio complicado pero es la unica mejor, sino de esta manera esta zarpado! :D
+    */
     int anchoTotal = 118;
     char* largo = titulo;
     int contador = 0;

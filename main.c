@@ -15,14 +15,15 @@ void apilarOrdenado(Pila *p);
 void insertarElementoEnOrdenada(Pila *p);
 void imprimirPila(Pila p);
 void cargarPilaRandom(Pila *p, int lim);
+void pasarPilaDeMenorAMayor (Pila *p, Pila *p2);
+int sumarElementos (Pila p);
 
 void main()
 {
-    int opcion = 0, ejercicio = 0;
+    int opcion = 0, ejercicio = 0, topeP, siguienteTope, suma;
     Pila pila, otra, ordenada;
     inicpila(&pila);
     inicpila(&otra);
-    inicpila(&ordenada);
     srand(time(NULL));
     int limite = rand()%(11-5) + 5;
     int menor = 0;
@@ -36,19 +37,32 @@ void main()
         imprimirTecho(ANCHO);
         contarTitulo("INGRESE EL NUMERO DEL EJERCICIO QUE DESEA EJECUTAR");
         imprimirTecho(ANCHO);
-        contarTitulo("1-Hacer una funcion que permita ingresar varios elementos a una pila, tanto como quiera el usuario.");
+        contarTitulo("1- Hacer una funcion que permita ingresar varios elementos a una pila, tanto como quiera el usuario.");
         imprimirTecho(ANCHO);
-        contarTitulo("2-Hacer una funcion que pase todos los elementos de una pila a otra.");
+        contarTitulo("2- Hacer una funcion que pase todos los elementos de una pila a otra.");
         imprimirTecho(ANCHO);
-        contarTitulo("3-Hacer una funcion que pase todos los elementos de una pila a otra, pero conservando el orden.");
+        contarTitulo("3- Hacer una funcion que pase todos los elementos de una pila a otra, pero conservando el orden.");
         imprimirTecho(ANCHO);
-        contarTitulo("4-Hacer una funcion que encuentre el menor elemento de una pila y lo retorna.");
+        contarTitulo("4- Hacer una funcion que encuentre el menor elemento de una pila y lo retorna.");
         contarTitulo("La misma debe eliminar ese dato de la pila.");
         imprimirTecho(ANCHO);
         contarTitulo("5-Hacer una funcion que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada.");
-        contarTitulo("Usar la funci�n del ejercicio 4.");
+        contarTitulo("Usar la funcion del ejercicio 4.");
         imprimirTecho(ANCHO);
-        contarTitulo("6. Hacer una funci�n que inserta en una pila ordenada un nuevo elemento, conservando el orden de �sta.");
+        contarTitulo("6- Hacer una funcion que inserta en una pila ordenada un nuevo elemento, conservando el orden de esta.");
+        imprimirTecho(ANCHO);
+        contarTitulo("7- Hacer una función que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada.");
+        contarTitulo("Usar la función del ejercicio 6.  (Ordenamiento por inserción).");
+        imprimirTecho(ANCHO);
+        contarTitulo("8- Hacer una funcion que sume y retorne los dos primeros elementos de una pila (tope y anterior),");
+        contarTitulo(" sin alterar su contenido. ");
+        imprimirTecho(ANCHO);
+        contarTitulo("9- Hacer una funcion que calcule el promedio de los elementos de una pila,");
+        contarTitulo("para ello hacer tambien una funcion que calcule la suma, otra para la cuenta y otra que divida.");
+        contarTitulo("En total son cuatro funciones, y la función que calcula el promedio invoca a las otras 3. ");
+        imprimirTecho(ANCHO);
+        contarTitulo("10- Hacer una funcion que reciba una pila con numeros de un solo digito,");
+        contarTitulo("(es responsabilidad de quien usa el programa) y que transforme esos dígitos en un numero decimal");
         imprimirTecho(ANCHO);
         scanf("%i", &ejercicio);
         system("cls");
@@ -61,56 +75,82 @@ void main()
             break;
 
         case 2:
-            printf("2-Hacer una funcion que pase todos los elementos de una pila a otra. \n");
+            contarTitulo("2-Hacer una funcion que pase todos los elementos de una pila a otra. \n");
 
             cargarPilaRandom(&pila, limite);
             ///int superior = tope(&pila);
-            printf("PILA");
+            contarTitulo("PILA: ");
             imprimirPila(pila);
             pasarPila (&pila, &otra);
-            printf("OTRA PILA");
+            contarTitulo("OTRA PILA: ");
             imprimirPila(otra);
             pasarPila (&otra, &pila);
             break;
 
         case 3:
-            printf("3-Hacer una funci�n que pase todos los elementos de una pila a otra, pero conservando el orden.\n");
+            contarTitulo("3-Hacer una funcion que pase todos los elementos de una pila a otra, pero conservando el orden.\n");
             cargarPilaRandom(&pila, limite);
-            printf("PILA");
+            contarTitulo("PILA: ");
             imprimirPila(pila);
             pasarPilaIgual (&pila, &otra);
-            printf("OTRA");
+            contarTitulo("OTRA: ");
             imprimirPila(pila);
             break;
 
         case 4:
-            printf("4. Hacer una funci�n que encuentre el menor elemento de una pila y lo retorna. La misma debe eliminar ese dato de la pila.\n");
+            contarTitulo("4. Hacer una funcion que encuentre el menor elemento de una pila y lo retorna.");
+            contarTitulo("La misma debe eliminar ese dato de la pila.");
             cargarPilaRandom(&pila, limite);
             imprimirPila(pila);
             menor = encontrarMenor (&pila);
-            printf("\n\nEL elemento menor de la pila es: %i\n\n", menor);
-            printf("PILA SIN EL MENOR ELEMENTO: \n");
+            contarTitulo("EL elemento menor de la pila es: ");
+            printf("\t\t\t\t\t\t\t%i\n", menor);
+            contarTitulo("PILA SIN EL MENOR ELEMENTO: ");
             imprimirPila(pila);
 
             break;
 
         case 5:
-            printf("Hacer una funci�n que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la funci�n del ejercicio 4. (Ordenamiento por selecci�n\n");
+            contarTitulo("Hacer una funcion que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada. Usar la funcion del ejercicio 4. (Ordenamiento por seleccion\n");
             cargarPilaRandom(&pila, limite);
-            printf("PILA ANTES DE LA ORDENACION\n");
+            contarTitulo("PILA ANTES DE LA ORDENACION: ");
             imprimirPila(pila);
             apilarOrdenado(&pila);
-            printf("PILA DESPUES DE LA ORDENACION\n");
+            contarTitulo("PILA DESPUES DE LA ORDENACION: ");
             imprimirPila(pila);
             break;
 
         case 6:
-            printf("6. Hacer una funci�n que inserta en una pila ordenada un nuevo elemento, conservando el orden de �sta. \n");
+            contarTitulo("6. Hacer una funcion que inserta en una pila ordenada un nuevo elemento, conservando el orden de esta. \n");
             cargarPilaRandom(&pila, limite);
             insertarElementoEnOrdenada(&pila);
             imprimirPila(pila);
-
             break;
+
+        case 7:
+            contarTitulo("7. Hacer una funcion que pase los elementos de una pila a otra, de manera que se genere una nueva pila ordenada.");
+            contarTitulo("Usar la función del ejercicio 6.  (Ordenamiento por insercion).");
+            cargarPilaRandom(&pila, limite);
+            contarTitulo("PILA -PILA-: ");
+            imprimirPila(pila);
+            pasarPilaDeMenorAMayor (&pila, &otra);
+            contarTitulo("PILA -OTRA-: ");
+            imprimirPila(otra);
+            pasarPila(&otra, &pila);
+            break;
+
+        case 8:
+            contarTitulo("8- Hacer una funcion que sume y retorne los dos primeros elementos de una pila (tope y anterior),");
+            contarTitulo(" sin alterar su contenido. ");
+            cargarPilaRandom(&pila, limite);
+            printf("\t\t\t\t\t\tPILA RANDOM: \n");
+            printf("\t\t\t\t\t\t");
+            imprimirPila(pila);
+            suma = sumarElementos (pila);
+            printf("\n \t\t\t\t\t\tLA SUMA DE LOS VALORES  es: %i \n", suma);
+            break;
+
+
 
 
 
@@ -296,13 +336,11 @@ void contarTitulo(char titulo[])
     }
     printf("||");
     printf("\n");
-
-
 }
 
 void imprimirTecho(int longitud)
 {
-    //printf("\n");
+
     for(int i = 0; i < longitud; i++)
     {
         printf("=");
@@ -334,6 +372,33 @@ void cargarPilaRandom(Pila *p, int lim)
     }
 }
 
+void pasarPilaDeMenorAMayor (Pila *p, Pila *p2)
+{
+    Pila aux;
+    inicpila(&aux);
+    pasarPila(p,p2);
+    apilarOrdenado(p2);
+}
 
+int sumarElementos (Pila p)
+{
+    int total = 0,valor1 = 0, valor2 = 0;
+    Pila aux;
+    inicpila(&aux);
+
+    if(!pilavacia(&p))
+    {
+        valor1 = tope(&p);
+        apilar(&aux, desapilar(&p));
+
+        if(!pilavacia(&p))
+        {
+            valor2 = tope(&p);
+            apilar(&aux, desapilar(&p));
+        }
+        total = valor1 + valor2;
+    }
+    return total;
+}
 
 
